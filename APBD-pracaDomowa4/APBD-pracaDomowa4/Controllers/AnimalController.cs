@@ -15,7 +15,7 @@ public class AnimalController : ControllerBase
         return Ok(StaticDataBase.animals[0]);
     }
 
-    [HttpGet("{id}")]
+    [HttpGet("{id:int}")]
     public IActionResult GetAnimal(int id)
     {
         var animal = StaticDataBase.getAnimalById(id);
@@ -25,31 +25,32 @@ public class AnimalController : ControllerBase
         }
         else
         {
-            return Ok("nie ma takiego zwierzecia");
+            return NotFound($"Animal with {id} was not found");
         }
     }
 
-    [HttpPut]
-    public IActionResult PutAnimal(int id, string name, string category, int weight, string furColor)
+    [HttpPost]
+    public IActionResult CreateAnimal(Animal animal)
     {
-        StaticDataBase.animals.Add(new Animal(id, name, category, weight, furColor));
-        return Ok();
+        StaticDataBase.animals.Add(animal);
+        return StatusCode(StatusCodes.Status201Created);
     }
 
-    [HttpPost("{id}")]
-    public IActionResult PostAnimal(int id, string name, string category, int weight, string furColor)
+    [HttpPut("{id:int}")]
+    public IActionResult UpdateAnimal(int id, Animal animal)
     {
         for (int i = 0; i < StaticDataBase.animals.Count; i++)
         {
             if (StaticDataBase.animals[i].Id == id)
             {
-                StaticDataBase.animals[i] = new Animal(id, name, category, weight, furColor);        
+                StaticDataBase.animals[i] = animal;
+                return NoContent();
             }
         }
-        return Ok();
+        return NotFound($"Animal with {id} was not found");
     }
 
-    [HttpDelete("{id}")]
+    [HttpDelete("{id:int}")]
     public IActionResult DeleteAnimal(int id)
     {
         for (int i = 0; i < StaticDataBase.animals.Count; i++)
@@ -57,9 +58,10 @@ public class AnimalController : ControllerBase
             if (StaticDataBase.animals[i].Id == id)
             {
                 StaticDataBase.animals.RemoveAt(i);
+                return NoContent();
             }
         }
-        return Ok();
+        return NotFound($"Animal with {id} was not found");
     }
     
 }

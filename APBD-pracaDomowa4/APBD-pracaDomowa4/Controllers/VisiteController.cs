@@ -25,10 +25,10 @@ public class VisiteController : ControllerBase
         return Ok(visites);
     }
 
-    [HttpPut]
-    public IActionResult PutVisite(string data, Animal animal, string visiteDescription, int cost)
+    [HttpPost]
+    public IActionResult CreateVisite(Visite visite)
     {
-        StaticDataBase.visites.Add(new Visite(data, animal, visiteDescription, cost));
-        return Ok();
+        StaticDataBase.visites.Add(visite);
+        return StatusCode(StatusCodes.Status201Created);
     }
 }
