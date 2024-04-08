@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\APBD-pracaDomowa4.props" />
+</Project>
