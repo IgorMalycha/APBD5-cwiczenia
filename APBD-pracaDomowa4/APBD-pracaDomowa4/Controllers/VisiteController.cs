@@ -1,6 +1,6 @@
-﻿using APBD_pracaDomowa4.DataBase;
+﻿
 using APBD_pracaDomowa4.Models;
-using Microsoft.AspNetCore.Http.HttpResults;
+
 using Microsoft.AspNetCore.Mvc;
 
 namespace APBD_pracaDomowa4.Controllers;
@@ -10,25 +10,24 @@ namespace APBD_pracaDomowa4.Controllers;
 [Route("visits")]
 public class VisiteController : ControllerBase
 {
+    
+    public static List<Visite> visites = new List<Visite>()
+    {
+        new Visite("02.03.2024", 1, "odrobaczanie", 50),
+        new Visite("14.01.2024", 2, "ostrzenie dzioba", 400)
+    };
 
     [HttpGet]
     public IActionResult GetVisites(int id)
     {
-        List<Visite> visites = new List<Visite>();
-        foreach (Visite visite in StaticDataBase.visites)
-        {
-            if (visite.Animal.Id == id)
-            {
-                visites.Add(visite);
-            }
-        }
-        return Ok(visites);
+        var animalVisits = visites.Where(v => v.Id == id).ToList();
+        return Ok(animalVisits);
     }
 
     [HttpPost]
     public IActionResult CreateVisite(Visite visite)
     {
-        StaticDataBase.visites.Add(visite);
+        visites.Add(visite);
         return StatusCode(StatusCodes.Status201Created);
     }
 }

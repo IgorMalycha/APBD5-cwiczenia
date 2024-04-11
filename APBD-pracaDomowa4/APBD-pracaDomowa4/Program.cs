@@ -1,5 +1,4 @@
 
-using APBD_pracaDomowa4.DataBase;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,7 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
-builder.Services.AddSingleton<StaticDataBase>();//tu jest cos zle 
+
 
 var app = builder.Build();
 

@@ -3,14 +3,14 @@
 public class Visite
 {
     public String Data { get; set; }
-    public Animal Animal { get; set; }
+    public int Id { get; set; }
     public string VisiteDescription { get; set; }
     public int Cost { get; set; }
 
-    public Visite(string data, Animal animal, string visiteDescription, int cost)
+    public Visite(string data, int id, string visiteDescription, int cost)
     {
         Data = data;
-        Animal = animal;
+        Id = id;
         VisiteDescription = visiteDescription;
         Cost = cost;
     }
